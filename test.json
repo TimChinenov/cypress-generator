@@ -1,0 +1,198 @@
+{
+    "openapi": "3.0.1",
+    "info": {},
+    "paths": {
+        "/data": {
+            "get": {
+                "tags": [],
+                "summary": "Get all data",
+                "description": "Use this Api to get all the data that you need!",
+                "parameters": [
+                    {
+                        "name": "ids",
+                        "in": "query",
+                        "description": "Zero or more ids to filter by. Ignored if null.",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "type": "integer",
+                                "format": "int32"
+                            }
+                        }
+                    },
+                    {
+                        "name": "titles",
+                        "in": "query",
+                        "description": "The titles of the data.",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            }
+                        }
+                    },
+                    {
+                        "name": "isActive",
+                        "in": "query",
+                        "description": "Return only active bois",
+                        "schema": {
+                            "type": "boolean"
+                        }
+                    }
+                ],
+                "response": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "text/plain": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/DataResponse"
+                                }
+                            },
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/DataResponse"
+                                }
+                            },
+                            "text/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/DataResponse"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [],
+                "summary": "Create new data.",
+                "description": "Use this api to create new data",
+                "requestBody": {
+                    "description": "a complete data request.",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/DataCreateRequest"
+                            }
+                        },
+                        "text/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/DataCreateRequest"
+                            }
+                        },
+                        "application/*+json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/DataCreateRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "text/plain": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/DataResponse"
+                                }
+                            },
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/DataResponse"
+                                }
+                            },
+                            "text/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/DataResponse"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/data/{id}": {
+            "get": {
+                "tags": []
+            },
+            "summary": "Get a data by it's id",
+            "description": "An external API to get a single piece of data by id",
+            "parameters": [
+                {
+                    "name": "id",
+                    "in": "path",
+                    "description": "Unique identifier of the data's Id",
+                    "required": true,
+                    "schema": {
+                        "type": "integer",
+                        "format": "int32"
+                    }
+                }
+            ],
+            "response": {
+                "200": {
+                    "description": "Success",
+                    "content": {
+                        "text/plain": {
+                            "schema": {
+                                "$ref":"#/components/schemas/DataResponse"
+                            }
+                        },
+                        "application/json": {
+                            "schema": {
+                                "$ref":"#/components/schemas/DataResponse"
+                            }
+                        },
+                        "text/json": {
+                            "schema": {
+                                "$ref":"#/components/schemas/DataResponse"
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "DataCreateRequest": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "description": "Identifier of the data.",
+                        "format": "int32"
+                    },
+                    "title": {
+                        "type": "string",
+                        "description": "Title of the data."
+                    },
+                    "isActive": {
+                        "type": "boolean",
+                        "description": "Tracks whether data is still active."
+                    }
+                },
+                "additionalProperties": false,
+                "description": "External API to create new data."
+            },
+            "DataResponse": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "description": "",
+                        "format": "int32" 
+                    },
+                    "title": {
+                        "type": "string",
+                        "description": ""
+                    },
+                    "isActive": {
+                        "type": "boolean",
+                        "description": ""
+                    }
+                }
+            }
+        }
+    }
+}
